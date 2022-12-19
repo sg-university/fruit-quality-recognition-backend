@@ -43,8 +43,7 @@ def patch_one_by_id(id: UUID, entity: Detection):
             raise Exception("Entity not found.")
 
         found_entity.id = entity.id
-        found_entity.file_name = entity.file_name
-        found_entity.file = entity.file
+        found_entity.image_id = entity.image_id
         found_entity.result = entity.result
         found_entity.created_at = entity.created_at
         found_entity.updated_at = entity.updated_at
