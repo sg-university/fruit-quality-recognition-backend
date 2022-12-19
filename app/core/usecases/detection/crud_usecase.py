@@ -44,7 +44,8 @@ def create_one(request: CreateOneRequest) -> Detection:
         entity.result = prediction_probability.to_json(orient="records")
 
         file.close()
-        os.remove(file_path)
+        if os.path.exists(file_path):
+            os.remove(file_path)
 
     created_entity = detection_repository.create_one(entity)
     return created_entity
@@ -83,7 +84,9 @@ def create_many(requests: List[CreateOneRequest]) -> List[Detection]:
         entity.result = prediction_probability.iloc[index].to_json(orient="records")
         created_entity = detection_repository.create_one(entity)
         created_entities.append(created_entity)
-        os.remove(file_path)
+
+        if os.path.exists(file_path):
+            os.remove(file_path)
 
     return created_entities
 
