@@ -13,6 +13,10 @@ from app.outer.interfaces.controllers.requests.detection_controller.patch_one_re
 from app.outer.repositories import detection_repository
 
 
+def fix_path(path):
+    return os.path.abspath(os.path.expanduser(path))
+
+
 def read_all() -> List[Detection]:
     return detection_repository.read_all()
 
@@ -28,8 +32,8 @@ def create_one(request: CreateOneRequest) -> Detection:
     entity.updated_at = datetime.now()
     entity.created_at = datetime.now()
 
-    current_path = f"{os.getcwd()}\\app\\core\\usecases\\detection"
-    file_path = f"{current_path}\\image_temp\\{str(entity.image_id)}"
+    current_path = fix_path(f"{os.getcwd()}/app/core/usecases/detection")
+    file_path = fix_path(f"{current_path}/image_temp/{str(entity.image_id)}")
     with open(file_path, "wb") as file:
         image = image_crud_usecase.read_one_by_id(entity.image_id)
         decoded_image_file = base64.urlsafe_b64decode(image.file)
@@ -38,7 +42,7 @@ def create_one(request: CreateOneRequest) -> Detection:
         predictor = MultiModalPredictor(
             label="label"
         ).load(
-            path=f"{current_path}\\autogluon_models\\ag-20221215_054846"
+            path=fix_path(f"{current_path}\\autogluon_models\\ag-20221215_054846")
         )
         prediction_probability = predictor.predict_proba({'image': [file_path]}, as_pandas=True)
         entity.result = prediction_probability.to_json(orient="records")
@@ -54,7 +58,7 @@ def create_one(request: CreateOneRequest) -> Detection:
 def create_many(requests: List[CreateOneRequest]) -> List[Detection]:
     file_paths = []
     entities = []
-    current_path = f"{os.getcwd()}\\app\\core\\usecases\\detection"
+    current_path = fix_path(f"{os.getcwd()}/app/core/usecases/detection")
     for request in requests:
         entity = Detection()
         entity.id = uuid.uuid4()
@@ -63,7 +67,7 @@ def create_many(requests: List[CreateOneRequest]) -> List[Detection]:
         entity.created_at = datetime.now()
         entities.append(entity)
 
-        file_path = f"{current_path}\\image_temp\\{str(request.image_id)}"
+        file_path = fix_path(f"{current_path}/image_temp/{str(request.image_id)}")
         file_paths.append(file_path)
         with open(file_path, "wb") as file:
             image = image_crud_usecase.read_one_by_id(request.image_id)
@@ -74,7 +78,7 @@ def create_many(requests: List[CreateOneRequest]) -> List[Detection]:
     predictor = MultiModalPredictor(
         label="label"
     ).load(
-        path=f"{current_path}\\autogluon_models\\ag-20221215_054846"
+        path=fix_path(f"{current_path}/autogluon_models/ag-20221215_054846")
     )
     prediction_probability = predictor.predict_proba({'image': file_paths}, as_pandas=True)
 
