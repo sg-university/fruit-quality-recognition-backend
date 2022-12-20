@@ -1,6 +1,3 @@
 
 # models
 app/core/usecases/detection/autogluon_models/ag-20221215_054846
-
-# compiles
-app/__pycache__
