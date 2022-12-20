@@ -42,7 +42,7 @@ def create_one(request: CreateOneRequest) -> Detection:
         predictor = MultiModalPredictor(
             label="label"
         ).load(
-            path=fix_path(f"{current_path}\\autogluon_models\\ag-20221215_054846")
+            path=fix_path(f"{current_path}/autogluon_models/ag-20221215_054846")
         )
         prediction_probability = predictor.predict_proba({'image': [file_path]}, as_pandas=True)
         entity.result = prediction_probability.to_json(orient="records")
