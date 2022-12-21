@@ -34,12 +34,13 @@ values ('71f0acf9-72a2-482e-b67f-2881808be840', 'apple_good.jpg',
 
 insert into detection (id, image_id, result, created_at, updated_at)
 values ('5b8f01d0-4ba5-4deb-8e65-1581520faff0', '71f0acf9-72a2-482e-b67f-2881808be840',
-        '{"label": "apple_good", "probability": 0.99}', now(), now()),
+        '[{"apple_good": 0.99}]', now(), now()),
        ('5b8f01d0-4ba5-4deb-8e65-1581520faff1', '71f0acf9-72a2-482e-b67f-2881808be841',
-        '{"label": "apple_mixed", "probability": 0.99}', now(), now()),
+        '[{"apple_mixed": 0.99}]', now(), now()),
        ('5b8f01d0-4ba5-4deb-8e65-1581520faff2', '71f0acf9-72a2-482e-b67f-2881808be842',
-        '{"label": "apple_bad", "probability": 0.99}', now(), now());
+        '[{"apple_bad": 0.99}]', now(), now());
 
 
-select * from detection d
-inner join image i on d.image_id = i.id
+select *
+from detection d
+         inner join image i on d.image_id = i.id
