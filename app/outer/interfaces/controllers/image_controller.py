@@ -37,6 +37,15 @@ async def create_one(request: CreateOneRequest) -> Content[Image]:
     return content
 
 
+@router.post("/many", response_model=Content[List[Image]])
+async def create_many(request: List[CreateOneRequest]) -> Content[List[Image]]:
+    content = Content[List[Image]](
+        message="Create one image succeed.",
+        data=crud_usecase.create_many(request)
+    )
+    return content
+
+
 @router.patch("/{id}", response_model=Content[Image])
 async def patch_one_by_id(id: UUID, request: PatchOneRequest) -> Content[Image]:
     content = Content[Image](

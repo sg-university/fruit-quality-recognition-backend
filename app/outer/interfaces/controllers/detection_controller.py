@@ -37,11 +37,11 @@ async def create_one(request: CreateOneRequest) -> Content[Detection]:
     return content
 
 
-@router.post("/many", response_model=Content[Detection])
-async def create_many(requests: List[CreateOneRequest]) -> Content[List[Detection]]:
+@router.post("/many", response_model=Content[List[Detection]])
+async def create_many(request: List[CreateOneRequest]) -> Content[List[Detection]]:
     content = Content[List[Detection]](
         message="Create many detection succeed.",
-        data=crud_usecase.create_many(requests)
+        data=crud_usecase.create_many(request)
     )
     return content
 

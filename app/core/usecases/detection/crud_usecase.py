@@ -55,22 +55,22 @@ def create_one(request: CreateOneRequest) -> Detection:
     return created_entity
 
 
-def create_many(requests: List[CreateOneRequest]) -> List[Detection]:
+def create_many(request: List[CreateOneRequest]) -> List[Detection]:
     file_paths = []
     entities = []
     current_path = fix_path(f"{os.getcwd()}/app/core/usecases/detection")
-    for request in requests:
+    for one_request in request:
         entity = Detection()
         entity.id = uuid.uuid4()
-        entity.image_id = request.image_id
+        entity.image_id = one_request.image_id
         entity.updated_at = datetime.now()
         entity.created_at = datetime.now()
         entities.append(entity)
 
-        file_path = fix_path(f"{current_path}/image_temp/{str(request.image_id)}")
+        file_path = fix_path(f"{current_path}/image_temp/{str(one_request.image_id)}")
         file_paths.append(file_path)
         with open(file_path, "wb") as file:
-            image = image_crud_usecase.read_one_by_id(request.image_id)
+            image = image_crud_usecase.read_one_by_id(one_request.image_id)
             decoded_image_file = base64.urlsafe_b64decode(image.file)
             file.write(decoded_image_file)
             file.close()
@@ -85,7 +85,7 @@ def create_many(requests: List[CreateOneRequest]) -> List[Detection]:
     created_entities = []
     for index, value in enumerate(zip(entities, file_paths)):
         entity, file_path = value
-        entity.result = prediction_probability.iloc[index].to_json(orient="records")
+        entity.result = prediction_probability.iloc[[index], :].to_json(orient="records")
         created_entity = detection_repository.create_one(entity)
         created_entities.append(created_entity)
 
