@@ -4,12 +4,12 @@ from pydantic import BaseSettings
 
 
 class DatabaseSettings(BaseSettings):
-    DIALECT = os.getenv("DIALECT", "postgresql")
-    HOST = os.getenv("DB_HOST", "localhost")
-    PORT = os.getenv("DB_PORT", 5432)
-    USER = os.getenv("DB_USER", "default")
-    PASSWORD = os.getenv("DB_PASSWORD", "default")
-    DATABASE = os.getenv("DB_DATABASE", "default")
+    DIALECT = os.getenv("WEB_DB_DIALECT", "postgresql")
+    HOST = os.getenv("WEB_DB_HOST", "localhost")
+    PORT = os.getenv("WEB_DB_PORT", 5432)
+    USER = os.getenv("WEB_DB_USER", "default")
+    PASSWORD = os.getenv("WEB_DB_PASSWORD", "default")
+    DATABASE = os.getenv("WEB_DB_NAME", "default")
 
     if DIALECT == "sqlite":
         URL = f"{DIALECT}:///{DATABASE}.sqlite3"

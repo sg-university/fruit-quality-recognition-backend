@@ -1,7 +1,7 @@
 import pytest
 from fastapi.encoders import jsonable_encoder
 
-from app.core.models.entities.Detection import Process
+from app.inner.models.entities.Detection import Process
 from app.outer.interfaces.gateways.BaseClient import BaseClient
 from app.outer.repositories import detection_repository
 

@@ -6,8 +6,8 @@ from datetime import datetime
 from autogluon.multimodal import MultiModalPredictor
 from pydantic.types import UUID, List
 
-from app.core.models.entities.Detection import Detection
-from app.core.usecases.image import crud_usecase as image_crud_usecase
+from app.inner.models.entities.Detection import Detection
+from app.inner.usecases.image import crud_usecase as image_crud_usecase
 from app.outer.interfaces.controllers.requests.detection_controller.create_one_request import CreateOneRequest
 from app.outer.interfaces.controllers.requests.detection_controller.patch_one_request import PatchOneRequest
 from app.outer.repositories import detection_repository
@@ -32,7 +32,7 @@ def create_one(request: CreateOneRequest) -> Detection:
     entity.updated_at = datetime.now()
     entity.created_at = datetime.now()
 
-    current_path = fix_path(f"{os.getcwd()}/app/core/usecases/detection")
+    current_path = fix_path(f"{os.getcwd()}/app/inner/usecases/detection")
     file_path = fix_path(f"{current_path}/image_temp/{str(entity.image_id)}")
     with open(file_path, "wb") as file:
         image = image_crud_usecase.read_one_by_id(entity.image_id)
@@ -58,7 +58,7 @@ def create_one(request: CreateOneRequest) -> Detection:
 def create_many(request: List[CreateOneRequest]) -> List[Detection]:
     file_paths = []
     entities = []
-    current_path = fix_path(f"{os.getcwd()}/app/core/usecases/detection")
+    current_path = fix_path(f"{os.getcwd()}/app/inner/usecases/detection")
     for one_request in request:
         entity = Detection()
         entity.id = uuid.uuid4()

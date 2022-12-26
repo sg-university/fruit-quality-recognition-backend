@@ -1,8 +1,8 @@
 from fastapi import APIRouter
 from pydantic.types import UUID, List
 
-from app.core.models.entities.Detection import Detection
-from app.core.usecases.detection import crud_usecase
+from app.inner.models.entities.Detection import Detection
+from app.inner.usecases.detection import crud_usecase
 from app.outer.interfaces.controllers.requests.detection_controller.create_one_request import CreateOneRequest
 from app.outer.interfaces.controllers.requests.detection_controller.patch_one_request import PatchOneRequest
 from app.outer.interfaces.controllers.responses.Content import Content

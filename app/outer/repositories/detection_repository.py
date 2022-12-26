@@ -2,7 +2,7 @@ from pydantic.types import UUID
 from sqlalchemy.exc import SQLAlchemyError
 from sqlmodel import select
 
-from app.core.models.entities.Detection import Detection
+from app.inner.models.entities.Detection import Detection
 from app.outer.interfaces.databases.db import create_session
 
 

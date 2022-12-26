@@ -3,7 +3,7 @@ from datetime import datetime
 
 from pydantic.types import UUID, List
 
-from app.core.models.entities.Image import Image
+from app.inner.models.entities.Image import Image
 from app.outer.interfaces.controllers.requests.image_controller.create_one_request import CreateOneRequest
 from app.outer.interfaces.controllers.requests.image_controller.patch_one_request import PatchOneRequest
 from app.outer.repositories import image_repository

@@ -1,8 +1,8 @@
 from fastapi import APIRouter
 from pydantic.types import UUID, List
 
-from app.core.models.entities.Image import Image
-from app.core.usecases.image import crud_usecase
+from app.inner.models.entities.Image import Image
+from app.inner.usecases.image import crud_usecase
 from app.outer.interfaces.controllers.requests.image_controller.create_one_request import CreateOneRequest
 from app.outer.interfaces.controllers.requests.image_controller.patch_one_request import PatchOneRequest
 from app.outer.interfaces.controllers.responses.Content import Content
