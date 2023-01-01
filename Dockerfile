@@ -1,4 +1,4 @@
-FROM autogluon/autogluon:0.6.1-cpu-framework-ubuntu20.04-py3.8
+FROM autogluon/autogluon:0.6.1-cuda11.3-framework-ubuntu20.04-py3.8
 ENTRYPOINT ["/bin/bash", "-l", "-c"]
 WORKDIR /repository
 COPY . .
