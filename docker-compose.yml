@@ -4,7 +4,7 @@ services:
     volumes:
       - .:/repository
     networks:
-      - postgres
+      - web
     environment:
       - WEB_DB_DIALECT=${WEB_DB_DIALECT}
       - WEB_DB_HOST=${WEB_DB_HOST}
@@ -24,7 +24,7 @@ services:
       - "${POSTGRES_PORT}:5432"
     restart: always
     networks:
-      - postgres
+      - web
 networks:
-  postgres:
+  web:
     driver: bridge
