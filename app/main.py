@@ -4,7 +4,9 @@ from pydantic import BaseConfig
 
 from app.outer.routers.router import api_router
 
-app = FastAPI()
+app = FastAPI(
+    title="fruit-quality-recognition-backend"
+)
 
 app.add_middleware(
     CORSMiddleware,

@@ -1,9 +1,9 @@
 import pytest
 from fastapi.encoders import jsonable_encoder
 
-from app.inner.models.entities.Detection import Process
+from app.inner.models.entities.Recognition import Process
 from app.outer.interfaces.gateways.BaseClient import BaseClient
-from app.outer.repositories import detection_repository
+from app.outer.repositories import recognition_repository
 
 mock_data: [Process] = [
     Process(id='6d2bcb36-ae72-4270-bc36-0a45deb9d710', title="title 0", description="description 0"),

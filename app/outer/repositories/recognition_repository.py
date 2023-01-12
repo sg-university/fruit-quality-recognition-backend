@@ -2,18 +2,18 @@ from pydantic.types import UUID
 from sqlalchemy.exc import SQLAlchemyError
 from sqlmodel import select
 
-from app.inner.models.entities.Detection import Detection
+from app.inner.models.entities.Recognition import Recognition
 from app.outer.interfaces.databases.db import create_session
 
 
 def read_all():
     with create_session() as session:
-        return session.exec(select(Detection)).all()
+        return session.exec(select(Recognition)).all()
 
 
 def read_one_by_id(id: UUID):
     with create_session() as session:
-        found_entity = session.exec(select(Detection).where(Detection.id == id)).first()
+        found_entity = session.exec(select(Recognition).where(Recognition.id == id)).first()
 
         if found_entity is None:
             raise Exception("Entity not found.")
@@ -21,7 +21,7 @@ def read_one_by_id(id: UUID):
         return found_entity
 
 
-def create_one(entity: Detection):
+def create_one(entity: Recognition):
     with create_session() as session:
         try:
             session.add(entity)
@@ -32,10 +32,10 @@ def create_one(entity: Detection):
     return entity
 
 
-def patch_one_by_id(id: UUID, entity: Detection):
+def patch_one_by_id(id: UUID, entity: Recognition):
     with create_session() as session:
         try:
-            found_entity = session.exec(select(Detection).where(Detection.id == id)).first()
+            found_entity = session.exec(select(Recognition).where(Recognition.id == id)).first()
         except SQLAlchemyError as e:
             raise e
 
@@ -60,7 +60,7 @@ def patch_one_by_id(id: UUID, entity: Detection):
 def delete_one_by_id(id: UUID):
     with create_session() as session:
         try:
-            found_entity = session.exec(select(Detection).where(Detection.id == id)).first()
+            found_entity = session.exec(select(Recognition).where(Recognition.id == id)).first()
         except SQLAlchemyError as e:
             raise e
 

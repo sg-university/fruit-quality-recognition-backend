@@ -8,15 +8,15 @@ create table if not exists image
     updated_at timestamp
 );
 
-drop table if exists detection cascade;
-create table if not exists detection
+drop table if exists recognition cascade;
+create table if not exists recognition
 (
     id         uuid primary key,
     image_id   uuid,
     result     text,
     created_at timestamp,
     updated_at timestamp,
-    constraint fk_detection_image_id_image_id foreign key (image_id) references image (id) on update cascade on delete cascade
+    constraint fk_recognition_image_id_image_id foreign key (image_id) references image (id) on update cascade on delete cascade
 );
 
 -- crete dummy data
@@ -32,7 +32,7 @@ values ('71f0acf9-72a2-482e-b67f-2881808be840', 'apple_good.jpg',
         now(), now());
 
 
-insert into detection (id, image_id, result, created_at, updated_at)
+insert into recognition (id, image_id, result, created_at, updated_at)
 values ('5b8f01d0-4ba5-4deb-8e65-1581520faff0', '71f0acf9-72a2-482e-b67f-2881808be840',
         '[{"apple_good": 0.99}]', now(), now()),
        ('5b8f01d0-4ba5-4deb-8e65-1581520faff1', '71f0acf9-72a2-482e-b67f-2881808be841',
@@ -42,5 +42,5 @@ values ('5b8f01d0-4ba5-4deb-8e65-1581520faff0', '71f0acf9-72a2-482e-b67f-2881808
 
 
 select *
-from detection d
+from recognition d
          inner join image i on d.image_id = i.id
